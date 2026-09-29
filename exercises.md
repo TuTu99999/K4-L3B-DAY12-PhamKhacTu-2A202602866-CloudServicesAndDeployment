@@ -29,10 +29,10 @@ Build cả hai phiên bản và ghi lại số đo thật:
 
 | Bản | Dung lượng |
 |-----|-----------|
-| 1 stage dùng `python:3.11` | **khoảng 1.1 GB** |
+| 1 stage dùng `python:3.11` | **1.73 GB** |
 | Multi-stage dùng `python:3.11-slim` | **271 MB** |
 
-> Phần chênh lệch chủ yếu đến từ base image `python:3.11` đầy đủ chứa nhiều gói hệ điều hành và công cụ không cần cho lúc chạy. Image multi-stage dùng base `slim`; stage `builder` chỉ tạo các dependency rồi runtime chỉ nhận phần đã cài cùng source code. Vì vậy các công cụ build và layer trung gian không đi vào image cuối. Image hiện tại vẫn có thể giảm thêm vì `requirements.txt` còn chứa dependency phục vụ test.
+> Tôi build lại đúng Dockerfile một-stage ban đầu và đo bằng `docker images`: bản một-stage là **1.73 GB**, còn bản multi-stage production là **271 MB**. Bản production giảm khoảng **1.46 GB**, tương đương khoảng **84%**. Phần chênh lệch chủ yếu đến từ base image `python:3.11` đầy đủ chứa nhiều gói hệ điều hành và công cụ không cần cho lúc chạy. Image multi-stage dùng base `slim`; stage `builder` chỉ tạo các dependency rồi runtime chỉ nhận phần đã cài cùng source code. Vì vậy các công cụ build và layer trung gian không đi vào image cuối. Image hiện tại vẫn có thể giảm thêm vì `requirements.txt` còn chứa dependency phục vụ test.
 
 ---
 
